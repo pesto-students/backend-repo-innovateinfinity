@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/node";
 import { getDriversByFilter } from '../services/DriverServices.js';
 import { PROFILES } from "../utils/enums.js";
 
@@ -14,6 +15,7 @@ const checkDriver = async (req, res, next) => {
         return res.status(401).json({ msg: 'You are not authorized for this particular action.' });
     }
     catch {
+        Sentry.captureException(e);
         return res.status(401).json({ msg: 'You are not authorized for this particular action.' });
     }
 };

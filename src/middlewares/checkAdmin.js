@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/node";
 import { getAdminsByFilter } from '../services/AdminServices.js';
 import { PROFILES } from "../utils/enums.js";
 
@@ -14,6 +15,7 @@ const checkAdmin = async (req, res, next) => {
 
     }
     catch {
+        Sentry.captureException(e);
         return res.status(401).json({ msg: 'You are not authorized for this particular action.' });
     }
 

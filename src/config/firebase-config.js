@@ -1,10 +1,9 @@
 import admin from 'firebase-admin';
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
-const serviceAccount = require('./serviceAccount.json');
+import * as dotenv from "dotenv";
+dotenv.config();
 
 admin.initializeApp({
-	credential: admin.credential.cert(serviceAccount),
+	credential: admin.credential.cert(JSON.parse(process.env.FIREBASE_CONFIG)),
 });
 
 export default admin;
