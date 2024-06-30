@@ -1,12 +1,14 @@
 import Express from "express";
 import axios from "axios";
+import * as dotenv from "dotenv";
 import { body } from "express-validator";
 import { getDriversByFilter } from "../services/DriverServices.js";
-import { getStudentsByFilter } from "../services/StudentServices.js";
 import { getAdminsByFilter } from "../services/AdminServices.js";
 import { getOrganizationsByFilter } from "../services/OrganizationServices.js";
 import auth from "../middlewares/auth.js";
 import rejectBadRequests from "../utils/rejectBadRequests.js";
+
+dotenv.config();
 
 const Router = Express.Router();
 
@@ -135,7 +137,7 @@ Router.post("/refresh-token", async (req, res) => {
   try {
     const newCredentials = await axios
       .post(
-        "https://securetoken.googleapis.com/v1/token?key=AIzaSyCSIMIa4z80oydTNeKG-eJ1A8a5Mn1WOGM",
+        process.env.REFRESH_TOKEN_URL,
         data
       )
       .then((response) => response)

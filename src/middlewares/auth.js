@@ -1,3 +1,4 @@
+import * as Sentry from "@sentry/node";
 import admin from '../config/firebase-config.js';
 
 const auth = async (req, res, next) => {
@@ -20,6 +21,7 @@ const auth = async (req, res, next) => {
         }
         return res.status(401).json({ msg: 'Unauthorized' });
     } catch (e) {
+        Sentry.captureException(e);
         return res.status(401).json({ msg: 'Unauthorized' });
     }
 };
