@@ -161,9 +161,6 @@ const createAttendanceBodyValidator = [
     .withMessage("Status field is required")
     .isString()
     .withMessage("Status must be a String."),
-  body("classType")
-    .isString()
-    .withMessage("classType must be a String."),
 ];
 
 Router.post(
@@ -444,7 +441,6 @@ Router.post(
       const data = {
         ...req.body,
         driverId: req.user._id,
-        status: STUDENT_STATUS.INPROGRESS,
         organizationId: req.user.organizationId,
       };
       await createStudent(data);
